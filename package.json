@@ -1,0 +1,28 @@
+{
+  "name": "dist-cookie",
+  "version": "0.0.3",
+  "description": "unique cookie",
+  "main": "index.js",
+  "dependencies": {
+    "pseudo-name": "^0.0.4"
+  },
+  "devDependencies": {
+    "webpack": "^4.5.0"
+  },
+  "scripts": {
+    "test": "echo Test complete"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolserdav/cookiejs.git"
+  },
+  "keywords": [
+    "cookie"
+  ],
+  "author": "Sergey <serega12101983@gmail.com> (https://github.com/kolserdav)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kolserdav/cookiejs/issues"
+  },
+  "homepage": "https://github.com/kolserdav/cookiejs#readme"
+}
