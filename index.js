@@ -33,7 +33,7 @@ function setCookie(name = 'name', cookie = 'cookie', time = 1){
     }
     else {
         newCookie = false;
-        cookie = (document.cookie.match(/\w*=\w*/))[0].replace((name+'='), '');
+        cookie = btoa((document.cookie.match(/\w*=\w*/))[0].replace((name+'='), ''));
         document.cookie = nameCookie + cookie + "; " + "expires=" + date.toUTCString();
     }
     let cookieClear = atob(cookie);
