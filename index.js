@@ -17,6 +17,7 @@ module.exports = setCookie;
  * @param time
  * @returns {{name: {nameCookie: {clear: string, encode: string}, time: Date, newCookie: bool}}}
  */
+
 function setCookie(name = 'name', cookie = 'cookie', time = 1){
 
     time = time*(1000*60*60*24);
@@ -25,20 +26,21 @@ function setCookie(name = 'name', cookie = 'cookie', time = 1){
     let nameCookie = name + "=",
         date = new Date(new Date().getTime() + time),
         newCookie;
-
-    if (!document.cookie) {
+    let doubleCookie = document.cookie.indexOf(name+'=') + 1;
+    if (!doubleCookie) {
         newCookie = true;
         cookie = (cookie === 'cookie' || cookie === '')? btoa(fullName()) : cookie;
         document.cookie = nameCookie + cookie + "; " + "expires=" + date.toUTCString();
     }
     else {
         newCookie = false;
-        cookie = btoa((document.cookie.match(/\w*=\w*/))[0].replace((name+'='), ''));
+        cookie = (document.cookie.match(/\w*=\w*/))[0].replace((name+'='), '');
         document.cookie = nameCookie + cookie + "; " + "expires=" + date.toUTCString();
     }
     let cookieClear = atob(cookie);
     return JSON.stringify({
         name : {
+            cookie : name,
             "nameCookie" : {
                 "clear": cookieClear,
                 "encode": cookie

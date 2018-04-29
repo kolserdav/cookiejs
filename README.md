@@ -12,7 +12,7 @@ _Using_
 let cook = require('dist-cookie');
 /**
  *Cookie processing
- * @param name = 'name'
+ * @param name = 'name' //if you change 'name', you need clear cookies and other data for your browser
  * @param cookie = 'cookie'
  * @param time = 1 {1 day|0.5 = 12 hours|-1 - deleted}
  * @returns {{
