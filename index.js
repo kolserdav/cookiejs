@@ -26,18 +26,17 @@ function setCookie(name = 'name', cookie = 'cookie', time = 1){
     let nameCookie = name + "=",
         date = new Date(new Date().getTime() + time),
         newCookie;
-    let doubleCookie = document.cookie.indexOf(name+'=') + 1;
-    if (!doubleCookie) {
+    let fullCookie = searchName(name);
+    if (!fullCookie) {
         newCookie = true;
         cookie = (cookie === 'cookie' || cookie === '')? btoa(fullName()) : cookie;
-        document.cookie = nameCookie + cookie + "; " + "expires=" + date.toUTCString();
+        document.cookie = nameCookie + cookie + ";" + "expires=" + date.toUTCString();
     }
     else {
         newCookie = false;
-        cookie = (document.cookie.match(/\w*=\w*/))[0].replace((name+'='), '');
-        document.cookie = nameCookie + cookie + "; " + "expires=" + date.toUTCString();
+        document.cookie = fullCookie.replace(/\s*/g, '')+ ";" + "expires=" + date.toUTCString();
     }
-    let cookieClear = atob(cookie);
+    let cookieClear = (cookie === 'cookie' || cookie === '')? atob(cookie) : cookie;
     return JSON.stringify({
         name : {
             cookie : name,
@@ -49,5 +48,29 @@ function setCookie(name = 'name', cookie = 'cookie', time = 1){
             "newCookie" : newCookie
         }
     });
+    function searchName(name, trim = null) {
+        let cookie = (trim !== null)? trim : document.cookie;
+        if (cookie) {
+            if (cookie.indexOf(name) === -1) {
+                return false;
+            }
+            else {
+
+                let trimGet = cookie.match(/\w+=\w+={0,4};*?/)[0];
+                if (trimGet.indexOf(name) + 1) {
+                    return trimGet.replace(';', '');
+
+                }
+                else {
+                    trim = cookie.replace(trimGet, '');
+                    return searchName(name, trim)
+                }
+
+            }
+        }
+        else {
+            return false;
+        }
+    }
 
 }
